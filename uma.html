@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet" />
+    <link rel="stylesheet" href="css/uma.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <title>未知との友好</title>
+</head>
+
+<body class="bg-violet-950 flex justify-center">
+    <main class="flex-col justify-center bg-yellow-200 w-4/5">
+        <div id="header_box">
+            <div>
+                <h1 class="text-lg flex justify-center">〜未知との友好〜</h1>
+            </div>
+            <div class="flex justify-center"><img class="h-20" src="./images/alien_ufo.png" alt=""></div>
+        </div>
+
+        <div id="start_box" class="bg-blue-400 w-48 h-auto rounded">
+            <button id="start_box_button"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                スタート
+            </button>
+            <button class="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                onclick="func1()">リセット</button>
+            <p>友好人数：</p>
+            <h2>0</h2>
+        </div>
+
+        <div id="center_box" class="h-60">
+            <div class="flex justify-center">
+                <img id="heart" class="h-32 flex justify-center hidden" src="./images/heart_lines.png" alt="">
+                <img id="america" class="h-60 flex justify-center hidden" src="./images/fantasy_flatwoods_monster.png"
+                    alt="">
+                <img id="tsuki" class="h-60 flex justify-center hidden" src="./images/yumekawa_animal_usagi.png" alt="">
+                <img id="kasei" class="h-60 flex justify-center hidden" src="./images/space_kaseijin.png" alt="">
+                <img id="grey" class="h-60 flex justify-center hidden" src="./images/alien_grey.png" alt="">
+
+            </div>
+
+
+
+        </div>
+        <div id="button_box" class="flex justify-center justify-evenly">
+
+            <button id="america_suki"
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                鉱物
+            </button>
+            <button id="tsuki_suki"
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                もち
+            </button>
+            <button id="kasei_suki"
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                カニ
+            </button>
+            <button id="grey_suki"
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                うし
+            </button>
+
+
+        </div>
+        <div class="py-12 flex justify-center ">
+            <p class="border-x-4 border-indigo-500">※ゲーム説明：相手の好みに合ったプレゼントを渡して、
+                20秒以内に、より多くの宇宙人と友好関係を結ぼう！</p>
+        </div>
+
+    </main>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        // スタートボタンを押した時の処理：宇宙人を一人表示してから、ボタンを2回目以降は押せなくする
+        let randomNumber = Math.floor(Math.random() * 4);
+        console.log(randomNumber);
+
+        const showUma = () => {
+            if (randomNumber === 0) {
+                $("#america").show();
+            } else if (randomNumber === 1) {
+                $("#tsuki").show();
+            } else if (randomNumber === 2) {
+                $("#kasei").show();
+            } else if (randomNumber === 3) {
+                $("#grey").show();
+            } else {
+                alert("お前はもう死んでいる")
+            }
+        };
+
+        $('#start_box_button').click(function () {
+            setTimeout(function () {
+                swal({
+                    title: "Congraturations!!!",
+                    text: "今回達成した友好人数：" + x + "人！",
+                    icon: "success",
+                }
+                );
+                $("#america_suki").prop("disabled", true);
+                $("#tsuki_suki").prop("disabled", true);
+                $("#kasei_suki").prop("disabled", true);
+                $("#grey_suki").prop("disabled", true);
+
+            }, 20000);
+            showUma();
+            // スタートボタン非活性
+            $("#start_box_button").prop("disabled", true);
+        })
+    </script>
+    <script>
+        // 友好人数を書き換えるためにHTML要素を読み込み定数を決める
+        const number = document.querySelector('h2');
+        var x = 0;
+
+        // 鉱物ボタンをクリックしたときの処理
+        $("#america_suki").click(function () {
+
+            if ($('#america').is(':visible')) {
+                $("#heart").show(function () {
+                    $("#heart").hide();
+                    $("#america").hide(500);
+                    $(this).data("click", ++x);
+                    console.log(x)
+                    const number = document.querySelector('h2');
+                    number.innerHTML = x;
+
+
+                    var randomNumber1 = Math.floor(Math.random() * 3);
+
+                    if (randomNumber1 === 0) {
+                        $("#tsuki").show();
+                    } else if (randomNumber1 === 1) {
+                        $("#kasei").show();
+                    } else if (randomNumber1 === 2) {
+                        $("#grey").show();
+                    } else {
+                        alert("お前はもう死んでいる")
+                    }
+                });
+
+
+            } else if ($('#tsuki').is(':visible')) {
+                $("#tsuki").hide(300);
+
+                var randomNumber2 = Math.floor(Math.random() * 3);
+
+                if (randomNumber2 === 0) {
+                    $("#america").show();
+                } else if (randomNumber2 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber2 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            } else if ($('#kasei').is(':visible')) {
+                $("#kasei").hide(300);
+
+                var randomNumber3 = Math.floor(Math.random() * 3);
+
+                if (randomNumber3 === 0) {
+                    $("#america").show();
+                } else if (randomNumber3 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber3 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            } else if ($('#grey').is(':visible')) {
+                $("#grey").hide(300);
+
+                var randomNumber4 = Math.floor(Math.random() * 3);
+
+                if (randomNumber4 === 0) {
+                    $("#america").show();
+                } else if (randomNumber4 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber4 === 2) {
+                    $("#kasei").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            }
+
+            else {
+                alert("お前はもう死んでいる")
+
+            }
+        });
+    </script>
+    <script>
+
+        $("#tsuki_suki").click(function () {
+
+            if ($('#tsuki').is(':visible')) {
+
+                $("#heart").show(function () {
+                    $("#heart").hide();
+                    $("#tsuki").hide(500);
+
+                    $(this).data("click", ++x);
+                    console.log(x)
+                    const number = document.querySelector('h2');
+                    number.innerHTML = x;
+
+
+                    var randomNumber2 = Math.floor(Math.random() * 3);
+
+                    if (randomNumber2 === 0) {
+                        $("#america").show();
+                    } else if (randomNumber2 === 1) {
+                        $("#kasei").show();
+                    } else if (randomNumber2 === 2) {
+                        $("#grey").show();
+                    } else {
+                        alert("お前はもう死んでいる")
+                    }
+                });
+
+
+            } else if ($('#america').is(':visible')) {
+                $("#america").hide(300);
+                var randomNumber1 = Math.floor(Math.random() * 3);
+
+                if (randomNumber1 === 0) {
+                    $("#tsuki").show();
+                } else if (randomNumber1 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber1 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+
+            }
+
+            else if ($('#kasei').is(':visible')) {
+                $("#kasei").hide(300);
+                var randomNumber3 = Math.floor(Math.random() * 3);
+
+                if (randomNumber3 === 0) {
+                    $("#america").show();
+                } else if (randomNumber3 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber3 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+            }
+            else if ($('#kasei').is(':visible')) {
+                $("#kasei").hide(300);
+
+                var randomNumber3 = Math.floor(Math.random() * 3);
+
+                if (randomNumber3 === 0) {
+                    $("#america").show();
+                } else if (randomNumber3 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber3 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            } else if ($('#grey').is(':visible')) {
+                $("#grey").hide(300);
+
+                var randomNumber4 = Math.floor(Math.random() * 3);
+
+                if (randomNumber4 === 0) {
+                    $("#america").show();
+                } else if (randomNumber4 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber4 === 2) {
+                    $("#kasei").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            }
+
+            else {
+                alert("お前はもう死んでいる")
+
+            }
+
+        });
+
+    </script>
+    <script>
+        $("#kasei_suki").click(function () {
+
+            if ($('#kasei').is(':visible')) {
+                $("#heart").show(function () {
+                    $("#heart").hide();
+                    $("#kasei").hide(500);
+
+                    $(this).data("click", ++x);
+                    console.log(x)
+                    const number = document.querySelector('h2');
+                    number.innerHTML = x;
+                    var randomNumber3 = Math.floor(Math.random() * 3);
+
+                    if (randomNumber3 === 0) {
+                        $("#america").show();
+                    } else if (randomNumber3 === 1) {
+                        $("#tsuki").show();
+                    } else if (randomNumber3 === 2) {
+                        $("#grey").show();
+                    } else {
+                        alert("お前はもう死んでいる")
+                    }
+
+                });
+
+
+            } else if ($('#america').is(':visible')) {
+                $("#america").hide(300);
+                var randomNumber1 = Math.floor(Math.random() * 3);
+
+                if (randomNumber1 === 0) {
+                    $("#tsuki").show();
+                } else if (randomNumber1 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber1 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            } else if ($('#tsuki').is(':visible')) {
+                $("#tsuki").hide(300);
+
+                var randomNumber2 = Math.floor(Math.random() * 3);
+
+                if (randomNumber2 === 0) {
+                    $("#america").show();
+                } else if (randomNumber2 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber2 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            } else if ($('#grey').is(':visible')) {
+                $("#grey").hide(300);
+
+                var randomNumber4 = Math.floor(Math.random() * 3);
+
+                if (randomNumber4 === 0) {
+                    $("#america").show();
+                } else if (randomNumber4 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber4 === 2) {
+                    $("#kasei").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            }
+
+            else {
+                alert("お前はもう死んでいる")
+
+            }
+        });
+    </script>
+    <script>
+        $("#grey_suki").click(function () {
+
+            if ($('#grey').is(':visible')) {
+                $("#heart").show(function () {
+                    $("#heart").hide();
+                    $("#grey").hide(500);
+
+                    $(this).data("click", ++x);
+                    console.log(x)
+                    const number = document.querySelector('h2');
+                    number.innerHTML = x;
+                    var randomNumber4 = Math.floor(Math.random() * 3);
+
+                    if (randomNumber4 === 0) {
+                        $("#america").show();
+                    } else if (randomNumber4 === 1) {
+                        $("#tsuki").show();
+                    } else if (randomNumber4 === 2) {
+                        $("#kasei").show();
+                    } else {
+                        alert("お前はもう死んでいる")
+                    }
+
+                });
+
+
+            } else if ($('#america').is(':visible')) {
+                $("#america").hide(300);
+                var randomNumber1 = Math.floor(Math.random() * 3);
+
+                if (randomNumber1 === 0) {
+                    $("#tsuki").show();
+                } else if (randomNumber1 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber1 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+
+            } else if ($('#tsuki').is(':visible')) {
+                $("#tsuki").hide(300);
+
+                var randomNumber2 = Math.floor(Math.random() * 3);
+
+                if (randomNumber2 === 0) {
+                    $("#america").show();
+                } else if (randomNumber2 === 1) {
+                    $("#kasei").show();
+                } else if (randomNumber2 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+
+            }
+
+            else if ($('#kasei').is(':visible')) {
+                $("#kasei").hide(300);
+                var randomNumber3 = Math.floor(Math.random() * 3);
+
+                if (randomNumber3 === 0) {
+                    $("#america").show();
+                } else if (randomNumber3 === 1) {
+                    $("#tsuki").show();
+                } else if (randomNumber3 === 2) {
+                    $("#grey").show();
+                } else {
+                    alert("お前はもう死んでいる")
+                }
+            } else {
+                alert("エラー")
+            }
+
+        });
+
+    </script>
+
+
+    <script> function func1() {
+            document.location.reload();
+        }</script>
+
+</body>
+
+</html>
